@@ -31,7 +31,7 @@ public class UserService {
                 request.name().trim(),
                 email,
                 passwordEncoder.encode(request.password()),
-                Role.OPERADOR
+                request.role()
         );
 
         User savedUser = userRepository.save(user);
