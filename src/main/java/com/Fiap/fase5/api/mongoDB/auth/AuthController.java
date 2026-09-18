@@ -10,6 +10,7 @@ import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import com.Fiap.fase5.api.mongoDB.user.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,7 +42,15 @@ public class AuthController {
 
     @GetMapping("/me")
     public ResponseEntity<Map<String, String>> me(Authentication authentication) {
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(Map.of("email", authentication.getName()));
+
+        User user = userService.findByEmail(authentication.getName());
+
+        return ResponseEntity.ok(
+                Map.of(
+                        "email", user.getEmail(),
+                        "name", user.getName(),
+                        "role", user.getRole().name()
+                )
+        );
     }
 }

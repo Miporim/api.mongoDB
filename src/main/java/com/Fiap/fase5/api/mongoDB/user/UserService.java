@@ -38,4 +38,14 @@ public class UserService {
         auditLogService.register("REGISTER", "USER", savedUser.getId(), savedUser.getEmail());
         return savedUser;
     }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new ResponseStatusException(
+                                HttpStatus.NOT_FOUND,
+                                "Usuário não encontrado"
+                        )
+                );
+    }
 }
