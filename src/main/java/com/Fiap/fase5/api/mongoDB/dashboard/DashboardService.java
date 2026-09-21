@@ -16,10 +16,10 @@ public class DashboardService {
 
     public DashboardResponse summarize() {
         List<Project> projects = projectRepository.findAll();
-        BigDecimal investment = sum(projects, Project::getInvestment);
-        BigDecimal revenue = sum(projects, Project::getRevenue);
-        BigDecimal costReduction = sum(projects, Project::getCostReduction);
-        BigDecimal productivity = sum(projects, Project::getProductivity);
+        BigDecimal investment = sum(projects, project -> BigDecimal.valueOf(project.getInvestimento()));
+        BigDecimal revenue = sum(projects, project -> BigDecimal.valueOf(project.getReceita()));
+        BigDecimal costReduction = BigDecimal.ZERO;
+        BigDecimal productivity = BigDecimal.ZERO;
         BigDecimal profit = revenue.subtract(investment);
         BigDecimal roi = investment.signum() == 0 ? BigDecimal.ZERO
                 : profit.multiply(ONE_HUNDRED).divide(investment, 2, RoundingMode.HALF_UP);

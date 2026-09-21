@@ -5,5 +5,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface IdeaRepository extends MongoRepository<Idea, String> {
 
-    List<Idea> findByCreatedByEmail(String createdByEmail);
+    List<Idea> findByUserCreator(String userCreator);
 }

@@ -5,51 +5,24 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "ideas")
 public class Idea {
-
-    @Id
-    private String id;
+    @Id private String id;
     private String title;
     private String description;
-    private String strategyId;
-    private String createdByEmail;
-    private IdeaStatus status;
-
-    public Idea() {
-    }
-
-    public Idea(String title, String description, String strategyId, String createdByEmail) {
-        this.title = title;
-        this.description = description;
-        this.strategyId = strategyId;
-        this.createdByEmail = createdByEmail;
-        this.status = IdeaStatus.PENDENTE;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getStrategyId() {
-        return strategyId;
-    }
-
-    public String getCreatedByEmail() {
-        return createdByEmail;
-    }
-
-    public IdeaStatus getStatus() {
-        return status;
-    }
-
-    public void changeStatus(IdeaStatus status) {
-        this.status = status;
-    }
+    private String userCreator;
+    private int scoreTotal;
+    private int totalVotes;
+    private long createdAt;
+    private long updatedAt;
+    public Idea() { }
+    public Idea(String title, String description, String userCreator) { this.title = title; this.description = description; this.userCreator = userCreator; this.createdAt = System.currentTimeMillis(); this.updatedAt = this.createdAt; }
+    public String getId() { return id; }
+    public String getTitle() { return title; }
+    public String getDescription() { return description; }
+    public String getUserCreator() { return userCreator; }
+    public int getScoreTotal() { return scoreTotal; }
+    public int getTotalVotes() { return totalVotes; }
+    public long getCreatedAt() { return createdAt; }
+    public long getUpdatedAt() { return updatedAt; }
+    public void update(String title, String description) { this.title = title; this.description = description; this.updatedAt = System.currentTimeMillis(); }
+    public void updateVoteSummary(int scoreTotal, int totalVotes) { this.scoreTotal = scoreTotal; this.totalVotes = totalVotes; this.updatedAt = System.currentTimeMillis(); }
 }
